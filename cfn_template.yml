@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: '2010-09-09'
+# Sample CFN YAML to demonstrate creating a crawler
+#
+# Parameters section contains names that are substituted in the Resources section
+# These parameters are the names the resources created in the Data Catalog
+Parameters:                                                                                                       
+# The name of the crawler to be created
+  CFNCrawlerName:  
+    Type: String
+    Default: crawl_gw_policycenter_landing_dev
+  CFNDatabaseName:
+    Type: String
+    Default: policycenter_landing_dev
+  
+Resources:
+
+  CFNCrawlerFlights:
+    Type: AWS::Glue::Crawler
+    Properties:
+      Name: !Ref CFNCrawlerName
+      Role: "arn:aws:iam::564021763094:role/ace-bd-glue-guidewire-role"
+      #Classifiers: none, use the default classifier
+      Description: crawl policycenter landing
+      #Schedule: none, use default run-on-demand
+      DatabaseName: !Ref CFNDatabaseName
+      Targets:
+        S3Targets:
+          # Public S3 bucket with the flights data
+          - Path: "s3://ace-bd-dev-guidewire-pc-landing"
+      RecrawlBehavior: "CRAWL_NEW_FOLDERS_ONLY"
+      SchemaChangePolicy:
+        UpdateBehavior: "UPDATE_IN_DATABASE"
+        DeleteBehavior: "LOG"
+      Configuration: "{\"Version\":1.0,\"CrawlerOutput\":{\"Partitions\":{\"AddOrUpdateBehavior\":\"InheritFromTable\"},\"Tables\":{\"AddOrUpdateBehavior\":\"MergeNewColumns\"}}}"
