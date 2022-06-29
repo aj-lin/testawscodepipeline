@@ -10,9 +10,9 @@ phases:
   build:
     commands:
       - echo "Zipping deployment package..."
-      - cd lib
+      - echo cd lib
       - echo commenting zip -r9 ../deployment_package.zip .
-      - cd ..
+      - echo cd ..
       - zip -g deployment_package.zip testlambda.py
   post_build:
     commands:
