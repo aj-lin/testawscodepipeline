@@ -5,6 +5,7 @@ phases:
       python: 3.8
     commands:
       - echo "Installing dependencies..."
+      - mkdir lib
       - pip install -r requirements.txt -t lib
   build:
     commands:
