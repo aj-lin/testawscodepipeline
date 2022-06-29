@@ -17,6 +17,5 @@ phases:
   post_build:
     commands:
       - echo "Updating lambda Function..."
-      - aws lambda create-function --function-name github-to-lambda-demo --zip-file fileb://deployment_package.zip --runtime python3.8 --handler lambda_function.lambda_handler --role arn:aws:iam::564021763094:role/ace-bd-guidewire-data-pull
-      - echo "aws lambda get-function --function-name || aws lambda update-function-code --function-name github-to-lambda-demo --zip-file fileb://deployment_package.zip"
+      - aws lambda create-function --function-name github-to-lambda-demo --zip-file fileb://deployment_package.zip --runtime python3.8 --handler lambda_function.lambda_handler --role arn:aws:iam::564021763094:role/ace-bd-guidewire-data-pull || aws lambda update-function-code --function-name github-to-lambda-demo --zip-file fileb://deployment_package.zip"
       - echo "DONE!!"
